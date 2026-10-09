@@ -1,4 +1,3 @@
-Set-Content -Path README.md -Value @"
 
 AI Restaurant Vision \& Compliance Intelligence System
 
@@ -12,9 +11,9 @@ Key Features \& Use Cases
 
 1. Front Gate Patron Counting \& Flow Tracking (Camera 2)
 
-&#x20;  ROI Gateway Tracking\*\*: Monitors entrance threshold crossings with persistent IDs.
+   ROI Gateway Tracking : Monitors entrance threshold crossings with persistent IDs.
 
-&#x20;  Occupancy Counter\*\*: Dynamically toggles between \\`Inside : 0\\` and \\`Inside : 1\\` upon patron entry and exit.
+  Occupancy Counter : Dynamically toggles between \\`Inside : 0\\` and \\`Inside : 1\\` upon patron entry and exit.
 
 
 
@@ -24,7 +23,7 @@ Key Features \& Use Cases
 
    Apron Auditing: Adaptive luminance and coverage tracking for disposable kitchen aprons.
 
-   Transparent \& Hygiene Glove Tracking: Uses anatomical wrist and hand keypoints (\\`YOLOv8-Pose\\`) to verify glove compliance,                suppressing phantom bounding boxes on clothing or back panels.
+   Transparent & Hygiene Glove Tracking: Uses anatomical wrist and hand keypoints (\\`YOLOv8-Pose\\`) to verify glove compliance,                suppressing   phantom bounding boxes on clothing or back panels.
 
    Vacant Zone Handling: Automatically suppresses static employee labels when prep stations are empty.
 
@@ -32,28 +31,56 @@ Key Features \& Use Cases
 
 3. Workplace Device Usage Detection (Camera 4)
 
-   Active Handheld Device Monitoring\*\*: Detects mobile phone usage in food-prep zones and flags \\`ALARM: PHONE IN USE\\`.
+   Active Handheld Device Monitoring : Detects mobile phone usage in food-prep zones and flags \\`ALARM: PHONE IN USE\\`.
 
 
 
 4. Restricted Zone Access Tripwires (Camera 6)
 
-    Storeroom Access Alerting\*\*: Instant intrusion detection triggers \\`ALARM: STOREROOM ACCESS\\` when personnel enter inventory areas.
+    Storeroom Access Alerting : Instant intrusion detection triggers \\`ALARM: STOREROOM ACCESS\\` when personnel enter inventory areas.
 
 
 
-5. Production Visuals \& Video Encoding
+5. Production Visuals & Video Encoding
 
-   Clean Drop-Shadow HUD\*\*: Renders transparent overlays without opaque black backgrounds.
+   Clean Drop-Shadow HUD : Renders transparent overlays without opaque black backgrounds.
 
-   Universal H.264 MP4 Export\*\*: Automatically encodes processed streams with faststart flags for browser and cloud playback.
-
-
-Installation \& Setup
+   Universal H.264 MP4 Export : Automatically encodes processed streams with faststart flags for browser and cloud playback.
 
 
+System Architecture
 
-\\`\\`\\`bash
+
+               Multi-Camera Streams (CCTV / MP4)
+                               │
+            ┌──────────────────┴──────────────────┐
+            ▼                                     ▼
+   [Watermark Cleaner]                 [YOLOv8-Pose Engine]
+  Overlays Camera Badges               • Anatomical Keypoint Tracking
+            │                          • Person Detection & Re-ID
+            │                          • Hand / Wrist / Head Isolation
+            │                                     │
+            └──────────────────┬──────────────────┘
+                               ▼
+                    [Spatial Logic Engine]
+      ┌────────────────────────┼────────────────────────┐
+      ▼                        ▼                        ▼
+[Patron Counting]      [PPE Compliance]        [Restricted Access]
+• Dynamic In/Out       • Haircap Detection     • Storeroom Tripwire
+• Gateway Ingress      • Apron Auditing        • Device In-Hand Alerts
+                       • Transparent Gloves
+                               │
+                               ▼
+               [High-Visibility HUD Dashboard]
+        • Canadian EDT Timestamps (05-10-2026)
+        • Drop-Shadow Text Overlays
+        • Dynamic Violation Alarms
+                               │
+                               ▼
+               [FFmpeg Universal H.264 Encoder]
+
+
+Installation & Setup
 
 git clone https://github.com/mukthaar917/AI\_Restaurant\_Vision.git
 
@@ -65,17 +92,11 @@ python -m venv .venv
 
 pip install -r requirements.txt
 
-\\`\\`\\`
-
-
 Run Pipeline
-
-
-\\`\\`\\`bash
 
 python run\_demo.py
 
-\\`\\`\\`
+
 
 "@
 
