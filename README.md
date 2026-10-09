@@ -13,7 +13,7 @@ Key Features \& Use Cases
 
    ROI Gateway Tracking : Monitors entrance threshold crossings with persistent IDs.
 
-  Occupancy Counter : Dynamically toggles between \\`Inside : 0\\` and \\`Inside : 1\\` upon patron entry and exit.
+  Occupancy Counter : Dynamically toggles between Inside : 0 and Inside : 1 upon patron entry and exit.
 
 
 
@@ -95,8 +95,3 @@ pip install -r requirements.txt
 Run Pipeline
 
 python run\_demo.py
-
-
-
-"@
-
