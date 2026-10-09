@@ -1,0 +1,16 @@
+# Virtual environment & Python cache
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Model weights
+*.pt
+*.onnx
+
+# Input/Output videos & temp archives
+input_videos/
+output_videos/
+*.mp4
+*.avi
+*.zip
